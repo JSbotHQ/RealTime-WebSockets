@@ -1,6 +1,6 @@
 # RealTime-Socket.IO
 
-#3. TrailsJS
+#1. ExpressJS
 
   i. client to server & server to client
    - go to `http://localhost:4005/group`.
