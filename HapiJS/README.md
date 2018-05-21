@@ -1,11 +1,14 @@
 # RealTime-Socket.IO
 
-#2. HapiJS
+### 2. HapiJS
 
-  i. client to server & server to client
+  - `cd HapiJS`
+  - `npm start` start the server
+
+  #### i. client to server & server to client
    - go to `http://localhost:4005/group`.
 
-  client code logic:
+  ##### client code logic:
 
       ws.send(message);
 
@@ -13,7 +16,7 @@
         console.log(msg)
       }
 
-  server code logic:
+  ##### server code logic:
 
       wss.clients.forEach(c=>{
           c.send(message)
@@ -22,5 +25,6 @@
         console.log(msg)
       })
 
-  ii. room messaging
+  #### ii. room messaging
+
    - Websockets doesn't provide feature for sending messages to room.

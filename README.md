@@ -1,4 +1,4 @@
-# RealTime-Socket.IO
+# RealTime-Websockets
 
 #### 1. ExpressJS - [README](https://github.com/JSbotHQ/RealTime-WebSockets/tree/master/ExpressJS)
   - `cd ExpressJS`
