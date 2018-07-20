@@ -23,7 +23,7 @@
         form input {
             border: 1px solid #c5bfbf;
             padding: 10px;
-            width: 90%;
+            width: 80%;
             margin-right: .5%;
         }
 
@@ -53,25 +53,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
-    const ws = new WebSocket('ws://'+window.location.hostname+':4005/test');
+    const ws = new WebSocket('ws://' + window.location.hostname + ':4005/test');
     ws.addEventListener('open', (event) => {
         $('#messages').append($('<li>').text('ID: ' + Math.random().toString(36).substring(2)));
     });
-
-    ws.addEventListener('message', (msg) => {
+    let message = (msg) => {
         $('#messages').append($('<li>').text(msg.data));
-    });
+    }
+    ws.addEventListener('message', message);
 
     $(() => {
-        $('form').submit(() => {
+        $("#send").click(() => {
             let message = $('#m').val()
             ws.send(message);
             $('#m').val('');
             return false;
         });
-    });
 
-    ws.removeEventListener("open", event, true);
+        $("#exit").click(() => {
+            ws.removeEventListener('message', message)
+        });
+    });
 
     ws.onclose = function (event) {
         console.log("close.", event);
@@ -80,6 +82,7 @@
         console.log("Error occurred.", event);
     }
 
+
 </script>
 
 <ul id="messages"></ul>
@@ -87,7 +90,9 @@
 <form action="">
     <input id="id" placeholder="socket id" autocomplete="off" hidden/>
     <input id="m" placeholder="enter message here" autocomplete="off"/>
-    <button>Send</button>
+    <button id="send">Send</button>
+    <button id="exit">exit</button>
 </form>
+
 </body>
 </html>

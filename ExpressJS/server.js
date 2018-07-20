@@ -10,14 +10,14 @@ http.listen(4005, () => {
     console.log('listening on *:4005');
 });
 
-noop = () => {
+let noop = () => {
 }
 
-heartbeat = () => {
+let heartbeat = () => {
     console.log('pong called:')
 }
 
-wssconnection = (ws) => {
+let wssconnection = (ws) => {
     interval
     ws.isAlive = true;
     //websocket pong
@@ -35,14 +35,15 @@ wssconnection = (ws) => {
 /**
  * ws.ping()
  */
-ping = () => {
+let ping = () => {
     wss.clients.forEach(function each(ws) {
         if (ws.isAlive === false) return ws.terminate();
         ws.isAlive = false;
         ws.ping(noop);
     });
 }
-connection = (ws) => {
+
+let connection = (ws) => {
     ws.on('message', (message) => {
         // broadcast to all
         wss1.clients.forEach(c => {
@@ -50,7 +51,9 @@ connection = (ws) => {
         })
     })
 }
-connection2 = (ws) => {
+
+let connection2 = (ws) => {
+    //listen event
     ws.on('message', (message) => {
         // broadcast to all
         wss1.clients.forEach(c => {
@@ -67,7 +70,7 @@ connection2 = (ws) => {
  * @param socket
  * @param head
  */
-upgrade = (request, socket, head) => {
+let upgrade = (request, socket, head) => {
     const pathname = url.parse(request.url).pathname;
     if (pathname === '/test') {
         wss1.handleUpgrade(request, socket, head, function done(ws) {
@@ -81,7 +84,9 @@ upgrade = (request, socket, head) => {
         socket.destroy();
     }
 }
+
 //const interval = setInterval(ping,30000);
+
 //wss.on('connection',wssconnection);
 wss1.on('connection', connection);
 wss2.on('connection', connection2);
